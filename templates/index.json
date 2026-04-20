@@ -1,0 +1,108 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "msg1": { "type": "message", "settings": { "message": "FREE SHIPPING OVER $200" } },
+        "msg2": { "type": "message", "settings": { "message": "SS26 · HEATON — NOW LIVE" } },
+        "msg3": { "type": "message", "settings": { "message": "MEMBERS: EARLY ACCESS OPEN" } }
+      },
+      "block_order": ["msg1", "msg2", "msg3"],
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow_text": "NOW LIVE · SS26 CHAPTER 07",
+        "collection_name": "SPR-03",
+        "chapter": "07 / 12",
+        "season": "SS · 26",
+        "location": "DETROIT, MI",
+        "primary_cta_text": "SHOP THE COLLECTION",
+        "primary_cta_link": "/collections/all",
+        "secondary_cta_text": "READ THE STORY",
+        "secondary_cta_link": "/pages/journal"
+      }
+    },
+    "product-rail-new": {
+      "type": "product-rail",
+      "settings": {
+        "title": "SPR-03 SS26",
+        "subtitle": "01 / 08 — NEW ARRIVALS",
+        "products_to_show": 8
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "text": "EARN THE DAGGER",
+        "speed": 45
+      }
+    },
+    "editorial-band": {
+      "type": "editorial-band",
+      "blocks": {
+        "row1": { "type": "index_row", "settings": { "key": "CHAPTER", "value": "03 / FORGE" } },
+        "row2": { "type": "index_row", "settings": { "key": "PUBLISHED", "value": "APR · 2026" } },
+        "row3": { "type": "index_row", "settings": { "key": "SUBJECT", "value": "MARA Q. — LIFTER" } }
+      },
+      "block_order": ["row1", "row2", "row3"],
+      "settings": {
+        "kicker": "THE JOURNAL — CHAPTER 03",
+        "title": "THE FORGE\nIS A PLACE.",
+        "body": "Mara lifts at 5 a.m. in a garage outside Detroit. No music, no mirror, no witness. The only scoreboard is a chalked number on a concrete wall. This is the language we build kit for.",
+        "cta_text": "READ THE FULL STORY",
+        "cta_link": "/blogs/journal",
+        "show_play_button": true,
+        "show_film_meta": true,
+        "film_label": "FILM 003",
+        "film_duration": "04:12"
+      }
+    },
+    "categories-grid": {
+      "type": "categories-grid",
+      "blocks": {
+        "cat1": { "type": "category", "settings": { "name": "TRAIN", "count": 42 } },
+        "cat2": { "type": "category", "settings": { "name": "LIFT", "count": 28 } },
+        "cat3": { "type": "category", "settings": { "name": "RUN", "count": 31 } },
+        "cat4": { "type": "category", "settings": { "name": "RECOVER", "count": 17 } }
+      },
+      "block_order": ["cat1", "cat2", "cat3", "cat4"],
+      "settings": {
+        "eyebrow": "SHOP BY DISCIPLINE",
+        "title": "CHOOSE\nYOUR RITE."
+      }
+    },
+    "product-rail-foundations": {
+      "type": "product-rail",
+      "settings": {
+        "title": "FOUNDATIONS",
+        "subtitle": "STAPLES · THE RACK",
+        "products_to_show": 8
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "col1": { "type": "link_column", "settings": { "heading": "SHOP", "links_fallback": "Train, Lift, Run, Recover, Everything" } },
+        "col2": { "type": "link_column", "settings": { "heading": "FORGE", "links_fallback": "The Manifesto, Journal, Ranks, Retail, Sustainability" } },
+        "col3": { "type": "link_column", "settings": { "heading": "HELP", "links_fallback": "Shipping, Returns, Sizing, Contact, FAQ" } },
+        "newsletter": { "type": "newsletter", "settings": { "heading": "ENLIST", "description": "Field reports. Release drops. No noise." } }
+      },
+      "block_order": ["col1", "col2", "col3", "newsletter"],
+      "settings": {
+        "tagline": "Kit for the willed. Forged in black. Train in anything."
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "hero",
+    "product-rail-new",
+    "marquee",
+    "editorial-band",
+    "categories-grid",
+    "product-rail-foundations",
+    "footer"
+  ]
+}

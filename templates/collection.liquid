@@ -1,0 +1,51 @@
+{%- paginate collection.products by 24 -%}
+
+<div class="iw-coll" style="padding-top: calc(var(--iw-ann-height) + var(--iw-nav-height));">
+
+  <div class="iw-coll__head">
+    <div class="iw-coll__eyebrow">{{ collection.products_count }} ITEMS</div>
+    <h1 class="iw-coll__title">{{ collection.title | upcase }}</h1>
+    {%- if collection.description != blank -%}
+      <p class="iw-coll__desc">{{ collection.description }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="iw-coll__grid">
+    {%- for product in collection.products -%}
+      {%- render 'product-card', product: product, index: forloop.index -%}
+    {%- else -%}
+      <p class="iw-muted" style="font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;grid-column:1/-1;padding:48px 0;">
+        NO PRODUCTS FOUND.
+      </p>
+    {%- endfor -%}
+  </div>
+
+  {%- if paginate.pages > 1 -%}
+    <div class="iw-coll__pagination">
+      {%- if paginate.previous -%}
+        <a href="{{ paginate.previous.url }}" class="iw-btn">← PREV</a>
+      {%- endif -%}
+      <span class="iw-muted" style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;">
+        {{ paginate.current_page }} / {{ paginate.pages }}
+      </span>
+      {%- if paginate.next -%}
+        <a href="{{ paginate.next.url }}" class="iw-btn">NEXT →</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+</div>
+
+<style>
+.iw-coll { background: #000; min-height: 100vh; max-width: var(--iw-container-max); margin: 0 auto; padding-left: 32px; padding-right: 32px; padding-bottom: 96px; }
+.iw-coll__head { padding: 72px 0 48px; border-bottom: 1px solid #1a1a1a; margin-bottom: 48px; }
+.iw-coll__eyebrow { font-family: var(--iw-font-mono); font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--iw-gray); margin-bottom: 12px; }
+.iw-coll__title { font-family: var(--iw-font-display); font-size: clamp(36px, 5vw, 72px); font-weight: 500; text-transform: uppercase; letter-spacing: -1px; line-height: 1; }
+.iw-coll__desc { font-family: var(--iw-font-body); font-size: 16px; color: #999; max-width: 560px; margin-top: 20px; line-height: 1.6; }
+.iw-coll__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.iw-coll__pagination { display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 72px; }
+@media (max-width: 980px) { .iw-coll__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .iw-coll { padding-left: 16px; padding-right: 16px; } .iw-coll__grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
+</style>
+
+{%- endpaginate -%}

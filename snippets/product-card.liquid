@@ -1,0 +1,91 @@
+{%- comment %}
+  Renders a product card for use in rails and grids.
+  Usage: render 'product-card', product: product, index: forloop.index
+{%- endcomment -%}
+
+{%- liquid
+  assign card_product = product
+  assign card_index = index | default: 1
+  assign primary_image = card_product.featured_image
+  assign alt_image = card_product.images[1]
+  assign first_variant = card_product.first_available_variant | default: card_product.variants.first
+  assign is_new = false
+  if card_product.tags contains 'new' or card_product.tags contains 'NEW'
+    assign is_new = true
+  endif
+-%}
+
+<a
+  href="{{ card_product.url }}"
+  class="iw-card"
+  data-product-id="{{ card_product.id }}"
+  data-variant-id="{{ first_variant.id }}"
+>
+  <div class="iw-card__media">
+
+    {%- if primary_image != blank -%}
+      <img
+        src="{{ primary_image | image_url: width: 1000 }}"
+        alt="{{ primary_image.alt | escape | default: card_product.title }}"
+        class="iw-card__img iw-card__img--primary"
+        loading="lazy"
+        width="1000"
+        height="1250"
+      >
+    {%- endif -%}
+
+    {%- if alt_image != blank -%}
+      <img
+        src="{{ alt_image | image_url: width: 1000 }}"
+        alt="{{ alt_image.alt | escape | default: card_product.title }}"
+        class="iw-card__img iw-card__img--alt"
+        loading="lazy"
+        width="1000"
+        height="1250"
+      >
+    {%- endif -%}
+
+    <div class="iw-card__top-row">
+      <span class="iw-card__no">NO. {{ card_index | prepend: '0' | slice: -2, 2 }}</span>
+      {%- if is_new -%}
+        <span class="iw-card__badge">NEW</span>
+      {%- elsif card_product.available == false -%}
+        <span class="iw-card__badge" style="background:#333;color:#999">SOLD OUT</span>
+      {%- endif -%}
+    </div>
+
+    <button
+      class="iw-card__quick-add"
+      data-add-to-cart
+      data-variant-id="{{ first_variant.id }}"
+      aria-label="Quick add {{ card_product.title }}"
+    >
+      <svg class="iw-card__quick-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+    </button>
+
+  </div>
+
+  <div class="iw-card__info">
+    <div class="iw-card__info-top">
+      <span class="iw-card__name">{{ card_product.title }}</span>
+      <span class="iw-card__price">
+        {%- if card_product.price_varies -%}
+          From {{ card_product.price_min | money_without_trailing_zeros }}
+        {%- else -%}
+          {{ card_product.price | money_without_trailing_zeros }}
+        {%- endif -%}
+      </span>
+    </div>
+    <div class="iw-card__sub">
+      {%- if first_variant.title != 'Default Title' -%}
+        <span>{{ first_variant.option1 }}</span>
+      {%- endif -%}
+      {%- if card_product.variants.size > 1 -%}
+        <span class="iw-card__dot">·</span>
+        <span>{{ card_product.variants.size }} VARIANTS</span>
+      {%- endif -%}
+    </div>
+  </div>
+</a>

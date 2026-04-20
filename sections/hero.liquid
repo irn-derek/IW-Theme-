@@ -1,0 +1,131 @@
+<section class="iw-hero iw-section" data-section-id="{{ section.id }}">
+
+  {%- if section.settings.image != blank -%}
+    <img
+      src="{{ section.settings.image | image_url: width: 2400 }}"
+      srcset="{{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 1400 }} 1400w, {{ section.settings.image | image_url: width: 2400 }} 2400w"
+      sizes="100vw"
+      alt="{{ section.settings.image.alt | escape }}"
+      class="iw-hero__img"
+      loading="eager"
+      fetchpriority="high"
+    >
+  {%- else -%}
+    <img
+      src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=2400"
+      alt="Ironwilled hero"
+      class="iw-hero__img"
+      loading="eager"
+    >
+  {%- endif -%}
+
+  <div class="iw-hero__bg-fallback"></div>
+  <div class="iw-hero__vignette"></div>
+  <div class="iw-hero__top-fade"></div>
+
+  <div class="iw-hero__meta">
+    <div class="iw-hero__meta-col">
+      <span class="iw-hero__meta-key">CHAPTER</span>
+      <span class="iw-hero__meta-val">{{ section.settings.chapter }}</span>
+    </div>
+    <div class="iw-hero__meta-col">
+      <span class="iw-hero__meta-key">SEASON</span>
+      <span class="iw-hero__meta-val">{{ section.settings.season }}</span>
+    </div>
+    <div class="iw-hero__meta-col">
+      <span class="iw-hero__meta-key">LOCATION</span>
+      <span class="iw-hero__meta-val">{{ section.settings.location }}</span>
+    </div>
+  </div>
+
+  <div class="iw-hero__content">
+    <div class="iw-hero__eyebrow">
+      <span class="iw-hero__pulse"></span>
+      {{ section.settings.eyebrow_text }}
+    </div>
+    <h1 class="iw-hero__title">{{ section.settings.collection_name }}</h1>
+    <div class="iw-hero__ctas">
+      <a href="{{ section.settings.primary_cta_link }}" class="iw-btn-filled">
+        {{ section.settings.primary_cta_text }}
+      </a>
+      <a href="{{ section.settings.secondary_cta_link }}" class="iw-btn">
+        {{ section.settings.secondary_cta_text }}
+      </a>
+    </div>
+  </div>
+
+  <div class="iw-hero__scroll" aria-hidden="true">
+    <span>SCROLL</span>
+    <span class="iw-hero__scroll-line"></span>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "NOW LIVE · SS26 CHAPTER 07"
+    },
+    {
+      "type": "text",
+      "id": "collection_name",
+      "label": "Collection name / headline",
+      "default": "SPR-03"
+    },
+    {
+      "type": "text",
+      "id": "chapter",
+      "label": "Chapter",
+      "default": "07 / 12"
+    },
+    {
+      "type": "text",
+      "id": "season",
+      "label": "Season",
+      "default": "SS · 26"
+    },
+    {
+      "type": "text",
+      "id": "location",
+      "label": "Location",
+      "default": "DETROIT, MI"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Primary CTA text",
+      "default": "SHOP THE COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Secondary CTA text",
+      "default": "READ THE STORY"
+    }
+  ],
+  "presets": [
+    { "name": "Hero" }
+  ]
+}
+{% endschema %}

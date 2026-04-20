@@ -1,0 +1,85 @@
+{%- comment %} Cart Drawer — slides in from right {%- endcomment %}
+
+<div id="iw-cart-scrim" class="iw-cart-scrim" aria-hidden="true"></div>
+
+<aside
+  id="iw-cart-panel"
+  class="iw-cart-panel"
+  aria-label="Shopping cart"
+  aria-modal="true"
+  role="dialog"
+>
+  <header class="iw-cart-head">
+    <div>
+      <div id="iw-cart-eyebrow" class="iw-cart-eyebrow">
+        YOUR CART · {{ cart.item_count }} ITEMS
+      </div>
+      <h2 class="iw-cart-title">THE RACK.</h2>
+    </div>
+    <button class="iw-cart-close" aria-label="Close cart">
+      <svg class="iw-cart-close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </header>
+
+  <div id="iw-cart-list" class="iw-cart-list">
+    {%- if cart.item_count == 0 -%}
+      <div class="iw-cart-empty">
+        <img src="{{ 'dagger-white.png' | asset_url }}" class="iw-cart-empty__dagger" alt="">
+        <div class="iw-cart-empty__text">THE CART IS EMPTY.</div>
+        <div class="iw-cart-empty__sub">GO EARN IT.</div>
+      </div>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div class="iw-cart-row" data-line="{{ forloop.index }}">
+          <div class="iw-cart-row__media">
+            {%- if item.image -%}
+              <img
+                src="{{ item.image | image_url: width: 192 }}"
+                alt="{{ item.title | escape }}"
+                class="iw-cart-row__img"
+              >
+            {%- endif -%}
+          </div>
+          <div class="iw-cart-row__body">
+            <div class="iw-cart-row__top">
+              <span class="iw-cart-row__name">{{ item.product.title }}</span>
+              <span class="iw-cart-row__price">{{ item.final_line_price | money_without_trailing_zeros }}</span>
+            </div>
+            <div class="iw-cart-row__meta">
+              {%- unless item.variant.title == 'Default Title' -%}
+                <span>SIZE {{ item.variant.title | upcase }}</span>
+                <span style="color:#333">·</span>
+              {%- endunless -%}
+              <span>QTY {{ item.quantity | prepend: '0' | slice: -2, 2 }}</span>
+            </div>
+            <button
+              class="iw-cart-row__remove"
+              data-line="{{ forloop.index }}"
+            >REMOVE</button>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <footer class="iw-cart-foot">
+    <div class="iw-cart-sub">
+      <span class="iw-cart-sub__key">SUBTOTAL</span>
+      <span id="iw-cart-subtotal" class="iw-cart-sub__val">
+        {{ cart.total_price | money_without_trailing_zeros }}
+      </span>
+    </div>
+    <div class="iw-cart-note">TAX &amp; SHIPPING AT CHECKOUT</div>
+    <a
+      href="/checkout"
+      id="iw-cart-checkout"
+      class="iw-cart-checkout"
+      {%- if cart.item_count == 0 %} style="pointer-events:none;opacity:0.4"{% endif %}
+    >
+      CHECKOUT — {{ cart.total_price | money_without_trailing_zeros }}
+    </a>
+    <button class="iw-cart-continue">CONTINUE BROWSING</button>
+  </footer>
+</aside>

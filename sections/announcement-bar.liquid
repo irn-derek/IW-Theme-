@@ -1,0 +1,46 @@
+<div class="iw-ann" role="region" aria-label="Announcement">
+  <button class="iw-ann__arrow iw-ann__arrow--prev" aria-label="Previous announcement">‹</button>
+  <span class="iw-ann__msg">
+    {%- for block in section.blocks -%}
+      <span class="iw-ann__msg-item" {% if forloop.first %}{% else %}style="display:none"{% endif %}>
+        {{- block.settings.message -}}
+      </span>
+    {%- else -%}
+      <span class="iw-ann__msg-item">FREE SHIPPING OVER $200</span>
+    {%- endfor -%}
+  </span>
+  <button class="iw-ann__arrow iw-ann__arrow--next" aria-label="Next announcement">›</button>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "div",
+  "class": "iw-ann-wrapper",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "message",
+          "label": "Message",
+          "default": "FREE SHIPPING OVER $200"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "message": "FREE SHIPPING OVER $200" } },
+      { "type": "message", "settings": { "message": "SS26 · HEATON — NOW LIVE" } },
+      { "type": "message", "settings": { "message": "MEMBERS: EARLY ACCESS OPEN" } }
+    ]
+  },
+  "presets": [
+    { "name": "Announcement Bar" }
+  ]
+}
+{% endschema %}

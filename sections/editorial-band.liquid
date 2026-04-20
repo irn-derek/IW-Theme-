@@ -1,0 +1,155 @@
+<div class="iw-editorial iw-section" data-section-id="{{ section.id }}" id="story">
+
+  <div class="iw-editorial__media">
+    {%- if section.settings.image != blank -%}
+      <img
+        src="{{ section.settings.image | image_url: width: 2000 }}"
+        srcset="{{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 2000 }} 2000w"
+        sizes="(max-width: 980px) 100vw, 57vw"
+        alt="{{ section.settings.image.alt | escape }}"
+        class="iw-editorial__img"
+        loading="lazy"
+      >
+    {%- else -%}
+      <img
+        src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=2000"
+        alt="Editorial"
+        class="iw-editorial__img"
+        loading="lazy"
+      >
+    {%- endif -%}
+    <div class="iw-editorial__img-vignette"></div>
+    {%- if section.settings.show_film_meta -%}
+      <div class="iw-editorial__film-meta">
+        <span>{{ section.settings.film_label }}</span>
+        <span>·</span>
+        <span>{{ section.settings.film_duration }}</span>
+      </div>
+    {%- endif -%}
+    {%- if section.settings.show_play_button -%}
+      <button class="iw-editorial__play-btn" aria-label="Play video">
+        <svg class="iw-editorial__play-icon" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+      </button>
+    {%- endif -%}
+  </div>
+
+  <div class="iw-editorial__text">
+    <div class="iw-editorial__kicker">{{ section.settings.kicker }}</div>
+    <h2 class="iw-editorial__title">{{ section.settings.title }}</h2>
+    <p class="iw-editorial__body">{{ section.settings.body }}</p>
+    <a href="{{ section.settings.cta_link }}" class="iw-editorial__cta">
+      {{ section.settings.cta_text }} →
+    </a>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="iw-editorial__index">
+        {%- for block in section.blocks -%}
+          <div class="iw-editorial__index-row" {{ block.shopify_attributes }}>
+            <span class="iw-editorial__index-key">{{ block.settings.key }}</span>
+            <span class="iw-editorial__index-val">{{ block.settings.value }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Editorial Band",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_play_button",
+      "label": "Show play button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_film_meta",
+      "label": "Show film metadata",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "film_label",
+      "label": "Film label",
+      "default": "FILM 003"
+    },
+    {
+      "type": "text",
+      "id": "film_duration",
+      "label": "Film duration",
+      "default": "04:12"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "THE JOURNAL — CHAPTER 03"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "THE FORGE\nIS A PLACE."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body copy",
+      "default": "Mara lifts at 5 a.m. in a garage outside Detroit. No music, no mirror, no witness. The only scoreboard is a chalked number on a concrete wall. This is the language we build kit for."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "READ THE FULL STORY"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "index_row",
+      "name": "Index row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "key",
+          "label": "Key",
+          "default": "CHAPTER"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "03 / FORGE"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "index_row", "settings": { "key": "CHAPTER", "value": "03 / FORGE" } },
+      { "type": "index_row", "settings": { "key": "PUBLISHED", "value": "APR · 2026" } },
+      { "type": "index_row", "settings": { "key": "SUBJECT", "value": "MARA Q. — LIFTER" } }
+    ]
+  },
+  "presets": [
+    { "name": "Editorial Band" }
+  ]
+}
+{% endschema %}

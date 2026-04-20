@@ -1,0 +1,44 @@
+{%- assign text = section.settings.text | default: 'EARN THE DAGGER' -%}
+{%- assign repeat = 8 -%}
+
+<div class="iw-marquee" aria-hidden="true" data-section-id="{{ section.id }}">
+  <div class="iw-marquee__track">
+    {%- for i in (1..repeat) -%}
+      <span class="iw-marquee__text">{{ text }}</span>
+      <img src="{{ 'dagger-white.png' | asset_url }}" alt="" class="iw-marquee__dagger">
+    {%- endfor -%}
+    {%- comment %} Duplicate for seamless loop {%- endcomment %}
+    {%- for i in (1..repeat) -%}
+      <span class="iw-marquee__text">{{ text }}</span>
+      <img src="{{ 'dagger-white.png' | asset_url }}" alt="" class="iw-marquee__dagger">
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Marquee text",
+      "default": "EARN THE DAGGER"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "default": 45,
+      "unit": "s",
+      "label": "Animation speed"
+    }
+  ],
+  "presets": [
+    { "name": "Marquee" }
+  ]
+}
+{% endschema %}

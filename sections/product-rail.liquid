@@ -1,0 +1,108 @@
+{%- liquid
+  assign collection = collections[section.settings.collection]
+  assign products_to_show = section.settings.products_to_show | default: 8
+-%}
+
+<div class="iw-rail iw-section" id="collection" data-section-id="{{ section.id }}">
+
+  <header class="iw-rail__head">
+    <div>
+      <div class="iw-rail__eyebrow">{{ section.settings.subtitle }}</div>
+      <h2 class="iw-rail__title">{{ section.settings.title }}</h2>
+    </div>
+    <div class="iw-rail__head-right">
+      <div class="iw-rail__nav">
+        <button class="iw-rail__arrow iw-rail__arrow--prev" aria-label="Previous">
+          <svg class="iw-rail__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m19 12H5"/><path d="m12 5-7 7 7 7"/>
+          </svg>
+        </button>
+        <button class="iw-rail__arrow iw-rail__arrow--next" aria-label="Next">
+          <svg class="iw-rail__arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+      {%- if collection != blank -%}
+        <a href="{{ collection.url }}" class="iw-rail__view-all">VIEW ALL — {{ collection.products_count }}</a>
+      {%- endif -%}
+    </div>
+  </header>
+
+  <div class="iw-rail__scroller">
+    {%- if collection != blank -%}
+      {%- for product in collection.products limit: products_to_show -%}
+        {%- render 'product-card', product: product, index: forloop.index -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..products_to_show) -%}
+        <a href="#" class="iw-card">
+          <div class="iw-card__media" style="background:#0a0a0a;">
+            <div class="iw-card__top-row">
+              <span class="iw-card__no">NO. {{ i | prepend: '0' | slice: -2, 2 }}</span>
+            </div>
+          </div>
+          <div class="iw-card__info">
+            <div class="iw-card__info-top">
+              <span class="iw-card__name">Sample Product</span>
+              <span class="iw-card__price">$000</span>
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div class="iw-rail__footer">
+    <div class="iw-rail__progress-track">
+      <div class="iw-rail__progress-bar" style="width:12%"></div>
+    </div>
+    {%- if collection != blank -%}
+      <a href="{{ collection.url }}" class="iw-rail__shop-all">
+        SHOP {{ section.settings.title }}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter:invert(0)">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+    {%- endif -%}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Product Rail",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "HEATON SS26"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle / eyebrow",
+      "default": "01 / 08 — NEW ARRIVALS"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    }
+  ],
+  "presets": [
+    { "name": "Product Rail" }
+  ]
+}
+{% endschema %}

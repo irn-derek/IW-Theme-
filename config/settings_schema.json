@@ -1,0 +1,59 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Ironwilled",
+    "theme_version": "1.0.0",
+    "theme_author": "Ironwilled",
+    "theme_documentation_url": "https://theironwilled.com",
+    "theme_support_url": "https://theironwilled.com"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Ironwilled uses a fixed three-color system: black, white, and gray. These cannot be changed — the palette is the brand."
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Display: Unbounded · UI/Mono: Space Mono · Body: Inter. Loaded from Google Fonts."
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "16×16px PNG recommended"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter",
+        "label": "Twitter / X URL"
+      }
+    ]
+  }
+]

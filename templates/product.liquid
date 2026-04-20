@@ -1,0 +1,189 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<div class="iw-pdp" style="padding-top: calc(var(--iw-ann-height) + var(--iw-nav-height));">
+
+  <div class="iw-pdp__layout">
+
+    {%- comment %} Media gallery {%- endcomment %}
+    <div class="iw-pdp__media">
+      <div class="iw-pdp__media-main">
+        {%- if product.featured_image -%}
+          <img
+            id="iw-pdp-main-img"
+            src="{{ product.featured_image | image_url: width: 1400 }}"
+            alt="{{ product.featured_image.alt | escape }}"
+            class="iw-pdp__img"
+            loading="eager"
+          >
+        {%- endif -%}
+      </div>
+
+      {%- if product.images.size > 1 -%}
+        <div class="iw-pdp__thumbs">
+          {%- for image in product.images limit: 6 -%}
+            <button
+              class="iw-pdp__thumb{% if forloop.first %} active{% endif %}"
+              data-img-src="{{ image | image_url: width: 1400 }}"
+              aria-label="View image {{ forloop.index }}"
+            >
+              <img src="{{ image | image_url: width: 200 }}" alt="">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment %} Product info {%- endcomment %}
+    <div class="iw-pdp__info">
+
+      <div class="iw-pdp__eyebrow">
+        {%- for tag in product.tags -%}
+          {%- if tag == 'new' or tag == 'NEW' -%}
+            <span class="iw-card__badge" style="margin-bottom:16px">NEW</span>
+          {%- endif -%}
+        {%- endfor -%}
+        {{ product.type | upcase }}
+      </div>
+
+      <h1 class="iw-pdp__title">{{ product.title }}</h1>
+
+      <div class="iw-pdp__price">
+        {%- if product.price_varies -%}
+          From {{ product.price_min | money_without_trailing_zeros }}
+        {%- else -%}
+          {{ product.price | money_without_trailing_zeros }}
+        {%- endif -%}
+      </div>
+
+      {%- form 'product', product, id: 'iw-pdp-form' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+        {%- for option in product.options_with_values -%}
+          <div class="iw-pdp__option" data-option-index="{{ forloop.index0 }}">
+            <div class="iw-pdp__option-label">
+              {{ option.name | upcase }}
+              <span class="iw-pdp__option-selected">{{ option.selected_value }}</span>
+            </div>
+            <div class="iw-pdp__option-values">
+              {%- for value in option.values -%}
+                {%- assign variant_available = false -%}
+                {%- for variant in product.variants -%}
+                  {%- if variant.option1 == value or variant.option2 == value or variant.option3 == value -%}
+                    {%- if variant.available -%}{%- assign variant_available = true -%}{%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                <button
+                  type="button"
+                  class="iw-pdp__swatch{% if option.selected_value == value %} active{% endif %}{% unless variant_available %} sold-out{% endunless %}"
+                  data-option-index="{{ forloop.parentloop.index0 }}"
+                  data-value="{{ value | escape }}"
+                >
+                  {{ value }}
+                </button>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endfor -%}
+
+        <div class="iw-pdp__actions">
+          {%- if current_variant.available -%}
+            <button type="submit" class="iw-btn-filled iw-pdp__add" style="width:100%;height:56px;font-size:13px;">
+              ADD TO THE RACK — {{ current_variant.price | money_without_trailing_zeros }}
+            </button>
+          {%- else -%}
+            <button type="button" class="iw-btn iw-pdp__add" style="width:100%;height:56px;font-size:13px;opacity:0.4;cursor:not-allowed" disabled>
+              SOLD OUT
+            </button>
+          {%- endif -%}
+        </div>
+      {%- endform -%}
+
+      <div class="iw-pdp__desc">
+        {{ product.description }}
+      </div>
+
+      <div class="iw-pdp__meta">
+        <div class="iw-editorial__index-row">
+          <span class="iw-editorial__index-key">SKU</span>
+          <span class="iw-editorial__index-val">{{ current_variant.sku | default: '—' }}</span>
+        </div>
+        <div class="iw-editorial__index-row">
+          <span class="iw-editorial__index-key">AVAILABILITY</span>
+          <span class="iw-editorial__index-val">{{ current_variant.available | default: false | ternary: 'IN STOCK', 'SOLD OUT' }}</span>
+        </div>
+        {%- if product.vendor != blank -%}
+          <div class="iw-editorial__index-row">
+            <span class="iw-editorial__index-key">VENDOR</span>
+            <span class="iw-editorial__index-val">{{ product.vendor | upcase }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<style>
+.iw-pdp { background: #000; min-height: 100vh; }
+.iw-pdp__layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 0;
+  max-width: var(--iw-container-max);
+  margin: 0 auto;
+}
+.iw-pdp__media { position: sticky; top: calc(var(--iw-ann-height) + var(--iw-nav-height)); height: fit-content; }
+.iw-pdp__media-main { aspect-ratio: 4/5; overflow: hidden; border: 1px solid #1a1a1a; }
+.iw-pdp__img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.05); display: block; }
+.iw-pdp__thumbs { display: flex; gap: 6px; padding: 8px 0; overflow-x: auto; }
+.iw-pdp__thumb { width: 72px; height: 90px; border: 1px solid #222; cursor: pointer; overflow: hidden; flex-shrink: 0; background: #0a0a0a; }
+.iw-pdp__thumb.active { border-color: #fff; }
+.iw-pdp__thumb img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
+.iw-pdp__info { padding: 64px 48px; display: flex; flex-direction: column; gap: 28px; }
+.iw-pdp__eyebrow { font-family: var(--iw-font-mono); font-size: 10px; letter-spacing: 1.4px; color: var(--iw-gray); text-transform: uppercase; }
+.iw-pdp__title { font-family: var(--iw-font-display); font-size: clamp(28px, 3vw, 48px); font-weight: 500; text-transform: uppercase; letter-spacing: -0.5px; line-height: 1; }
+.iw-pdp__price { font-family: var(--iw-font-mono); font-size: 20px; letter-spacing: 1.2px; }
+.iw-pdp__option { display: flex; flex-direction: column; gap: 12px; }
+.iw-pdp__option-label { font-family: var(--iw-font-mono); font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--iw-gray); display: flex; justify-content: space-between; }
+.iw-pdp__option-selected { color: var(--iw-white); }
+.iw-pdp__option-values { display: flex; flex-wrap: wrap; gap: 6px; }
+.iw-pdp__swatch { padding: 10px 16px; border: 1px solid #333; background: transparent; color: var(--iw-white); font-family: var(--iw-font-mono); font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; cursor: pointer; transition: border-color 200ms; }
+.iw-pdp__swatch.active { border-color: var(--iw-white); }
+.iw-pdp__swatch.sold-out { opacity: 0.3; text-decoration: line-through; }
+.iw-pdp__swatch:hover:not(.sold-out) { border-color: var(--iw-white); }
+.iw-pdp__desc { font-family: var(--iw-font-body); font-size: 15px; line-height: 1.6; color: #ccc; border-top: 1px solid #1a1a1a; padding-top: 28px; }
+.iw-pdp__meta { border-top: 1px solid #1a1a1a; }
+@media (max-width: 980px) {
+  .iw-pdp__layout { grid-template-columns: 1fr; }
+  .iw-pdp__media { position: static; }
+  .iw-pdp__info { padding: 32px 16px; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Thumb switcher
+  document.querySelectorAll('.iw-pdp__thumb').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.iw-pdp__thumb').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var mainImg = document.getElementById('iw-pdp-main-img');
+      if (mainImg && btn.dataset.imgSrc) mainImg.src = btn.dataset.imgSrc;
+    });
+  });
+
+  // Variant swatch selector
+  var form = document.getElementById('iw-pdp-form');
+  document.querySelectorAll('.iw-pdp__swatch').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var idx = btn.dataset.optionIndex;
+      document.querySelectorAll('[data-option-index="' + idx + '"].iw-pdp__swatch').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      // Update label
+      var label = btn.closest('.iw-pdp__option').querySelector('.iw-pdp__option-selected');
+      if (label) label.textContent = btn.dataset.value;
+    });
+  });
+});
+</script>

@@ -1,0 +1,120 @@
+<div class="iw-categories iw-section" data-section-id="{{ section.id }}">
+
+  <div class="iw-categories__head">
+    <div class="iw-categories__eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="iw-categories__title">{{ section.settings.title }}</h2>
+  </div>
+
+  <div class="iw-categories__grid">
+    {%- for block in section.blocks -%}
+      <a
+        href="{{ block.settings.link | default: '#' }}"
+        class="iw-categories__tile"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.image != blank -%}
+          <img
+            src="{{ block.settings.image | image_url: width: 1200 }}"
+            srcset="{{ block.settings.image | image_url: width: 600 }} 600w, {{ block.settings.image | image_url: width: 1200 }} 1200w"
+            sizes="25vw"
+            alt="{{ block.settings.name }}"
+            class="iw-categories__tile-img"
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=1200"
+            alt="{{ block.settings.name }}"
+            class="iw-categories__tile-img"
+            loading="lazy"
+          >
+        {%- endif -%}
+        <div class="iw-categories__tile-vignette"></div>
+        <div class="iw-categories__tile-content">
+          <span class="iw-categories__tile-no">0{{ forloop.index }}</span>
+          <div class="iw-categories__tile-bottom">
+            <span class="iw-categories__tile-name">{{ block.settings.name }}</span>
+            {%- if block.settings.count > 0 -%}
+              <span class="iw-categories__tile-count">{{ block.settings.count }} ITEMS →</span>
+            {%- endif -%}
+          </div>
+        </div>
+      </a>
+    {%- else -%}
+      {%- for name in "TRAIN,LIFT,RUN,RECOVER" | split: "," -%}
+        <div class="iw-categories__tile" style="background:#0a0a0a;">
+          <div class="iw-categories__tile-content">
+            <span class="iw-categories__tile-no">0{{ forloop.index }}</span>
+            <div class="iw-categories__tile-bottom">
+              <span class="iw-categories__tile-name">{{ name }}</span>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Categories Grid",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "SHOP BY DISCIPLINE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "CHOOSE\nYOUR RITE."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "TRAIN"
+        },
+        {
+          "type": "number",
+          "id": "count",
+          "label": "Item count",
+          "default": 42
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "default": {
+    "blocks": [
+      { "type": "category", "settings": { "name": "TRAIN", "count": 42 } },
+      { "type": "category", "settings": { "name": "LIFT", "count": 28 } },
+      { "type": "category", "settings": { "name": "RUN", "count": 31 } },
+      { "type": "category", "settings": { "name": "RECOVER", "count": 17 } }
+    ]
+  },
+  "presets": [
+    { "name": "Categories Grid" }
+  ]
+}
+{% endschema %}

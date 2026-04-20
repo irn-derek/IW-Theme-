@@ -1,0 +1,77 @@
+<nav class="iw-nav" role="navigation" aria-label="Main navigation">
+
+  {%- comment %} Left links {%- endcomment %}
+  <div class="iw-nav__left">
+    <a href="/collections/all" class="iw-nav__link" data-open-menu="shop">SHOP</a>
+    <a href="/pages/brand" class="iw-nav__link" data-open-menu="brand">BRAND</a>
+    <a href="/pages/dagger-club" class="iw-nav__link iw-nav__link--medium" data-open-menu="dagger">DAGGER CLUB</a>
+  </div>
+
+  {%- comment %} Center logo {%- endcomment %}
+  <a href="/" class="iw-nav__center" aria-label="{{ shop.name }}">
+    {%- if section.settings.logo != blank -%}
+      <img
+        src="{{ section.settings.logo | image_url: height: 96 }}"
+        alt="{{ shop.name }}"
+        class="iw-nav__logo"
+        width="auto"
+        height="48"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'dagger-3d.gif' | asset_url }}"
+        alt="{{ shop.name }}"
+        class="iw-nav__logo"
+        width="auto"
+        height="48"
+      >
+    {%- endif -%}
+  </a>
+
+  {%- comment %} Right links {%- endcomment %}
+  <div class="iw-nav__right">
+    <a href="/pages/forge" class="iw-nav__link iw-nav__link--desktop">FORGE</a>
+    <a href="/blogs/journal" class="iw-nav__link iw-nav__link--desktop">JOURNAL</a>
+    <a href="/pages/ranks" class="iw-nav__link iw-nav__link--desktop">RANKS</a>
+    <a href="#" class="iw-nav__link iw-nav__link--dim iw-nav__link--medium">
+      {{ localization.country.currency.iso_code }} / {{ localization.country.iso_code }}
+    </a>
+    <span class="iw-nav__divider iw-nav__link--medium"></span>
+    <a href="/search" class="iw-nav__icon-btn" aria-label="Search">
+      <svg class="iw-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+    </a>
+    <a href="/account" class="iw-nav__icon-btn" aria-label="Account">
+      <svg class="iw-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    </a>
+    <button class="iw-nav__cart" data-open-cart aria-label="Cart">
+      <svg class="iw-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span class="iw-nav__cart-count">{{ cart.item_count | default: '00' | prepend: '0' | slice: -2, 2 }}</span>
+    </button>
+  </div>
+
+</nav>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "div",
+  "class": "iw-header-wrapper",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "Leave blank to use the animated dagger GIF"
+    }
+  ],
+  "presets": [
+    { "name": "Header" }
+  ]
+}
+{% endschema %}

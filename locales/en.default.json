@@ -1,0 +1,39 @@
+{
+  "general": {
+    "continue_shopping": "CONTINUE BROWSING",
+    "search": "SEARCH",
+    "close": "CLOSE"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "ADD TO THE RACK",
+      "sold_out": "SOLD OUT",
+      "unavailable": "UNAVAILABLE",
+      "price": {
+        "from_price_html": "From {{ price }}"
+      }
+    },
+    "facets": {
+      "clear_all": "CLEAR ALL",
+      "filter_by_label": "FILTER"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "THE RACK.",
+      "empty": "THE CART IS EMPTY.",
+      "empty_cta": "GO EARN IT.",
+      "checkout": "CHECKOUT",
+      "subtotal": "SUBTOTAL",
+      "taxes_and_shipping": "TAX & SHIPPING AT CHECKOUT"
+    }
+  },
+  "sections": {
+    "header": {
+      "cart_count": {
+        "one": "1 ITEM",
+        "other": "{{ count }} ITEMS"
+      }
+    }
+  }
+}

@@ -1,0 +1,219 @@
+{%- comment %} Shop Menu — slides in from left with tab switching {%- endcomment %}
+
+<div id="iw-menu-scrim" class="iw-menu-scrim" aria-hidden="true"></div>
+
+<aside
+  id="iw-menu-panel"
+  class="iw-menu-panel"
+  aria-label="Navigation menu"
+  aria-modal="true"
+  role="dialog"
+>
+
+  {%- comment %} ===== LIST SIDE ===== {%- endcomment %}
+  <div class="iw-menu__list">
+    <div class="iw-menu__list-head">
+      <div class="iw-menu__tabs">
+        <a href="#" class="iw-menu__tab active" data-kind="shop">SHOP</a>
+        <a href="#" class="iw-menu__tab" data-kind="brand">BRAND</a>
+        <a href="#" class="iw-menu__tab" data-kind="dagger">DAGGER CLUB</a>
+      </div>
+      <button class="iw-menu__close" aria-label="Close menu">
+        <svg class="iw-menu__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="iw-menu__list-body">
+
+      {%- comment %} SHOP pane {%- endcomment %}
+      <div class="iw-menu__pane" data-kind="shop" style="display:flex;flex-direction:column">
+        <div class="iw-menu__group">
+          <a href="/collections/new-arrivals" class="iw-menu__link-big">New Arrivals</a>
+          <a href="/collections/bestsellers" class="iw-menu__link-big">Bestsellers</a>
+          <a href="/collections/heaton" class="iw-menu__link-big">Heaton SS26</a>
+          <a href="/collections/restocked" class="iw-menu__link-big">Restocked</a>
+          <a href="/collections/all" class="iw-menu__link-big">Shop All</a>
+          <a href="/collections/vault" class="iw-menu__link-big">The Vault</a>
+        </div>
+
+        <div class="iw-menu__group-head">SHOP</div>
+        <div class="iw-menu__group">
+          <a href="/collections/clothing" class="iw-menu__row">
+            <span class="iw-menu__row-label">Clothing</span>
+            <span class="iw-menu__chev">›</span>
+          </a>
+          <a href="/collections/all" class="iw-menu__row">
+            <span class="iw-menu__row-label">Collections</span>
+            <span class="iw-menu__chev">›</span>
+          </a>
+          <a href="/collections/collaborations" class="iw-menu__row">
+            <span class="iw-menu__row-label">Collaborations</span>
+            <span class="iw-menu__chev">›</span>
+          </a>
+          <a href="/collections/footwear" class="iw-menu__row">
+            <span class="iw-menu__row-label">Footwear</span>
+          </a>
+          <a href="/collections/accessories" class="iw-menu__row">
+            <span class="iw-menu__row-label">Accessories</span>
+            <span class="iw-menu__chev">›</span>
+          </a>
+          <a href="/collections/womens" class="iw-menu__row">
+            <span class="iw-menu__row-label">Womens</span>
+            <span class="iw-menu__chev">›</span>
+          </a>
+          <a href="/products/gift-card" class="iw-menu__row">
+            <span class="iw-menu__row-label">Gift Card</span>
+          </a>
+          <a href="/collections/outfits" class="iw-menu__row">
+            <span class="iw-menu__row-label">Outfits<span class="iw-menu__row-note">— Shop curated looks</span></span>
+          </a>
+        </div>
+
+        <div class="iw-menu__group-head">EXPLORE</div>
+        <div class="iw-menu__group">
+          <a href="/pages/ranks" class="iw-menu__row">
+            <span class="iw-menu__row-label">Ranks Loyalty Programme</span>
+          </a>
+          <a href="/pages/events" class="iw-menu__row">
+            <span class="iw-menu__row-label">Events</span>
+          </a>
+          <a href="/pages/brand" class="iw-menu__row">
+            <span class="iw-menu__row-label">Behind the Brand</span>
+          </a>
+          <a href="/pages/retail" class="iw-menu__row">
+            <span class="iw-menu__row-label">Retail</span>
+          </a>
+        </div>
+
+        <div class="iw-menu__footer">
+          <img src="{{ 'dagger-white.png' | asset_url }}" alt="" class="iw-menu__footer-dagger">
+          <span class="iw-menu__footer-text">EARN THE DAGGER</span>
+        </div>
+      </div>
+
+      {%- comment %} BRAND pane {%- endcomment %}
+      <div class="iw-menu__pane" data-kind="brand" style="display:none;flex-direction:column">
+        <div class="iw-menu__group">
+          <a href="/pages/about" class="iw-menu__link-big">About</a>
+        </div>
+
+        <div class="iw-menu__group-head">COLLABORATIONS</div>
+        <div class="iw-menu__group">
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Detroit Lions x Ironwilled</span></a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">No Witness x Ironwilled</span></a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Timeless x Ironwilled</span></a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Mara Q. x Ironwilled</span></a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Ash Wainright x Ironwilled</span></a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Tumble x Ironwilled</span></a>
+        </div>
+
+        <div class="iw-menu__group-head">THE COMPANY</div>
+        <div class="iw-menu__group">
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Ironwilled App</span></a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Blueprint to Better</span></a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Wholesale</span></a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Press &amp; Reviews</span></a>
+        </div>
+
+        <div class="iw-menu__footer">
+          <img src="{{ 'dagger-white.png' | asset_url }}" alt="" class="iw-menu__footer-dagger">
+          <span class="iw-menu__footer-text">EARN THE DAGGER</span>
+        </div>
+      </div>
+
+      {%- comment %} DAGGER CLUB pane {%- endcomment %}
+      <div class="iw-menu__pane" data-kind="dagger" style="display:none;flex-direction:column">
+        <div class="iw-menu__group">
+          <a href="/pages/ranks" class="iw-menu__link-big">Join the Ranks</a>
+          <a href="/pages/member-perks" class="iw-menu__link-big">Member Perks</a>
+          <a href="/pages/early-access" class="iw-menu__link-big">Early Access</a>
+        </div>
+
+        <div class="iw-menu__group-head">REWARDS</div>
+        <div class="iw-menu__group">
+          <a href="#" class="iw-menu__row">
+            <span class="iw-menu__row-label">Points &amp; Tiers</span>
+            <span class="iw-menu__chev">›</span>
+          </a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Free Shipping</span></a>
+          <a href="#" class="iw-menu__row">
+            <span class="iw-menu__row-label">Members-Only Drops</span>
+            <span class="iw-menu__chev">›</span>
+          </a>
+          <a href="#" class="iw-menu__row">
+            <span class="iw-menu__row-label">Repair &amp; Trade-In</span>
+            <span class="iw-menu__chev">›</span>
+          </a>
+          <a href="#" class="iw-menu__row"><span class="iw-menu__row-label">Training Events</span></a>
+        </div>
+
+        <div class="iw-menu__group-head">YOUR ACCOUNT</div>
+        <div class="iw-menu__group">
+          <a href="/account/login" class="iw-menu__row"><span class="iw-menu__row-label">Sign In</span></a>
+          <a href="/account#orders" class="iw-menu__row"><span class="iw-menu__row-label">Order History</span></a>
+          <a href="/account#saved" class="iw-menu__row"><span class="iw-menu__row-label">Saved Items</span></a>
+          <a href="/account#addresses" class="iw-menu__row"><span class="iw-menu__row-label">Address Book</span></a>
+        </div>
+
+        <div class="iw-menu__footer">
+          <img src="{{ 'dagger-white.png' | asset_url }}" alt="" class="iw-menu__footer-dagger">
+          <span class="iw-menu__footer-text">EARN THE DAGGER</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment %} ===== FEATURE IMAGE SIDE ===== {%- endcomment %}
+  <div style="position:relative;overflow:hidden;">
+
+    <a href="/collections/heaton" class="iw-menu__feature iw-menu__feature-pane" data-kind="shop" style="display:block">
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600" alt="" class="iw-menu__feature-img">
+      <div class="iw-menu__feature-vignette"></div>
+      <div class="iw-menu__feature-meta">
+        <div class="iw-menu__feature-top">
+          <span>NOW LIVE · SS26</span>
+          <span class="iw-menu__feature-index">07 / 12</span>
+        </div>
+        <div class="iw-menu__feature-bottom">
+          <span class="iw-menu__feature-title">HEATON.</span>
+          <span class="iw-menu__feature-cta">SHOP THE DROP →</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="/pages/brand" class="iw-menu__feature iw-menu__feature-pane" data-kind="brand" style="display:none">
+      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1600" alt="" class="iw-menu__feature-img">
+      <div class="iw-menu__feature-vignette"></div>
+      <div class="iw-menu__feature-meta">
+        <div class="iw-menu__feature-top">
+          <span>THE MANIFESTO</span>
+          <span class="iw-menu__feature-index">EST. 2023</span>
+        </div>
+        <div class="iw-menu__feature-bottom">
+          <span class="iw-menu__feature-title">FORGED IN BLACK.</span>
+          <span class="iw-menu__feature-cta">READ THE MANIFESTO →</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="/pages/ranks" class="iw-menu__feature iw-menu__feature-pane" data-kind="dagger" style="display:none">
+      <img src="https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=1600" alt="" class="iw-menu__feature-img">
+      <div class="iw-menu__feature-vignette"></div>
+      <div class="iw-menu__feature-meta">
+        <div class="iw-menu__feature-top">
+          <span>TIER 02 · FORGE</span>
+          <span class="iw-menu__feature-index">XP 1,240</span>
+        </div>
+        <div class="iw-menu__feature-bottom">
+          <span class="iw-menu__feature-title">EARN THE DAGGER.</span>
+          <span class="iw-menu__feature-cta">JOIN THE RANKS →</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+</aside>

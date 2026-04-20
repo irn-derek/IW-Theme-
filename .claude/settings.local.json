@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(curl -s --max-filesize 5000000 \"https://api.anthropic.com/v1/design/h/vA350NT2qeQLF211uCF9mQ?open_file=Ironwilled+Store.html\")",
+      "Bash(curl -s --compressed \"https://api.anthropic.com/v1/design/h/vA350NT2qeQLF211uCF9mQ?open_file=Ironwilled+Store.html\")",
+      "Bash(curl -sv --compressed \"https://api.anthropic.com/v1/design/h/vA350NT2qeQLF211uCF9mQ?open_file=Ironwilled+Store.html\" -o /tmp/ironwilled_design.html)",
+      "Bash(curl -s \"https://api.anthropic.com/v1/design/h/vA350NT2qeQLF211uCF9mQ?open_file=Ironwilled+Store.html\" -o /tmp/ironwilled_raw.bin)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" \"https://api.anthropic.com/v1/design/h/vA350NT2qeQLF211uCF9mQ?open_file=Ironwilled+Store.html\" -o /tmp/ironwilled2.bin)",
+      "Bash(mkdir -p \"/Users/derekslack/NEW WEBSITE 26/layout\" \"/Users/derekslack/NEW WEBSITE 26/assets\" \"/Users/derekslack/NEW WEBSITE 26/sections\" \"/Users/derekslack/NEW WEBSITE 26/snippets\" \"/Users/derekslack/NEW WEBSITE 26/templates\" \"/Users/derekslack/NEW WEBSITE 26/config\" \"/Users/derekslack/NEW WEBSITE 26/locales\")",
+      "Bash(cp \"/Users/derekslack/Downloads/ironwilled/project/assets/dagger-white.png\" \"/Users/derekslack/NEW WEBSITE 26/assets/\")",
+      "Bash(cp \"/Users/derekslack/Downloads/ironwilled/project/assets/dagger-black.png\" \"/Users/derekslack/NEW WEBSITE 26/assets/\")",
+      "Bash(cp \"/Users/derekslack/Downloads/ironwilled/project/assets/dagger-3d.gif\" \"/Users/derekslack/NEW WEBSITE 26/assets/\")",
+      "Bash(gh auth *)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(git config *)",
+      "Bash(curl -s -X POST -H \"Authorization: token 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\" -H \"Accept: application/vnd.github.v3+json\" https://api.github.com/user/repos -d '{\"name\":\"IW-Theme-\",\"private\":true,\"description\":\"Ironwilled Shopify Theme\"}')",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\('html_url'\\) or d.get\\('message','error'\\)\\)\")",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Initial Ironwilled Shopify theme *)"
+    ]
+  }
+}

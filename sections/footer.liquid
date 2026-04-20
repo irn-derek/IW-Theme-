@@ -1,0 +1,136 @@
+<footer class="iw-footer" data-section-id="{{ section.id }}">
+
+  <div class="iw-footer__top">
+    <div class="iw-footer__brand">
+      <img src="{{ 'dagger-white.png' | asset_url }}" alt="{{ shop.name }}" class="iw-footer__dagger">
+      <div class="iw-footer__wordmark">IRONWILLED</div>
+      <p class="iw-footer__tag">{{ section.settings.tagline }}</p>
+    </div>
+
+    <div class="iw-footer__cols">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link_column' -%}
+          <div class="iw-footer__col" {{ block.shopify_attributes }}>
+            <div class="iw-footer__col-head">{{ block.settings.heading }}</div>
+            {%- assign links = linklists[block.settings.menu] -%}
+            {%- if links != blank -%}
+              {%- for link in links.links -%}
+                <a href="{{ link.url }}" class="iw-footer__col-link">{{ link.title }}</a>
+              {%- endfor -%}
+            {%- else -%}
+              {%- assign items = block.settings.links_fallback | split: "," -%}
+              {%- for item in items -%}
+                <a href="#" class="iw-footer__col-link">{{ item | strip }}</a>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        {%- elsif block.type == 'newsletter' -%}
+          <div class="iw-footer__col" {{ block.shopify_attributes }}>
+            <div class="iw-footer__col-head">{{ block.settings.heading }}</div>
+            <p class="iw-footer__col-p">{{ block.settings.description }}</p>
+            {%- form 'customer', id: 'footer-newsletter-form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="iw-footer__form">
+                <input
+                  type="email"
+                  name="contact[email]"
+                  placeholder="EMAIL"
+                  class="iw-footer__input"
+                  required
+                  aria-label="Email address"
+                >
+                <button type="submit" class="iw-footer__submit" aria-label="Subscribe">→</button>
+              </div>
+            {%- endform -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="iw-footer__bottom">
+    <div class="iw-footer__copy">© {{ 'now' | date: '%Y' }} IRONWILLED · FORGED IN DETROIT</div>
+    <div class="iw-footer__region">
+      <span>{{ localization.country.currency.iso_code }} / {{ localization.country.iso_code }}</span>
+      <span class="iw-footer__sep">·</span>
+      <span>{{ request.locale.name | upcase }}</span>
+    </div>
+    <div class="iw-footer__links">
+      <a href="/policies/privacy-policy" class="iw-footer__small">PRIVACY</a>
+      <a href="/policies/terms-of-service" class="iw-footer__small">TERMS</a>
+      <a href="/policies/refund-policy" class="iw-footer__small">RETURNS</a>
+    </div>
+  </div>
+
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "div",
+  "class": "iw-footer-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Brand tagline",
+      "default": "Kit for the willed. Forged in black. Train in anything."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_column",
+      "name": "Link column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "SHOP"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Navigation menu"
+        },
+        {
+          "type": "text",
+          "id": "links_fallback",
+          "label": "Fallback links (comma-separated)",
+          "default": "Train, Lift, Run, Recover, Everything"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "ENLIST"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Field reports. Release drops. No noise."
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link_column", "settings": { "heading": "SHOP", "links_fallback": "Train, Lift, Run, Recover, Everything" } },
+      { "type": "link_column", "settings": { "heading": "FORGE", "links_fallback": "The Manifesto, Journal, Ranks, Retail, Sustainability" } },
+      { "type": "link_column", "settings": { "heading": "HELP", "links_fallback": "Shipping, Returns, Sizing, Contact, FAQ" } },
+      { "type": "newsletter", "settings": {} }
+    ]
+  },
+  "presets": [
+    { "name": "Footer" }
+  ]
+}
+{% endschema %}
