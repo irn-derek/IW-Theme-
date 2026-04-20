@@ -14,11 +14,33 @@
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif %}
   <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon %}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32 }}">
+  {%- else %}
+    <link rel="icon" type="image/png" href="{{ 'dagger-white.png' | asset_url }}">
+  {%- endif %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   {{ content_for_header }}
   {{ 'ironwilled.css' | asset_url | stylesheet_tag }}
+
+  <script>
+    window.IW = window.IW || {};
+    window.IW.assets = {
+      daggerWhite: {{ 'dagger-white.png' | asset_url | json }},
+      daggerBlack: {{ 'dagger-black.png' | asset_url | json }}
+    };
+    window.IW.routes = {
+      cart:       '/cart.js',
+      cartAdd:    '/cart/add.js',
+      cartChange: '/cart/change.js',
+      checkout:   '/checkout'
+    };
+    window.IW.shop = {
+      moneyFormat: {{ shop.money_format | json }}
+    };
+  </script>
 </head>
 <body class="template-{{ template.name }}">
 
@@ -26,8 +48,6 @@
   {%- section 'header' -%}
   {%- render 'shop-menu' -%}
   {%- render 'cart-drawer' -%}
-
-  <div id="page-overlay" class="page-overlay" aria-hidden="true"></div>
 
   <main id="main-content">
     {{ content_for_layout }}

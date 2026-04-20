@@ -1,0 +1,72 @@
+<div style="padding-top:calc(var(--iw-ann-height) + var(--iw-nav-height));max-width:var(--iw-container-max);margin:0 auto;padding-left:32px;padding-right:32px;padding-bottom:96px;min-height:100vh;">
+
+  <div style="padding:72px 0 48px;border-bottom:1px solid #1a1a1a;margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+    <div>
+      <div style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;margin-bottom:12px;">ACCOUNT</div>
+      <h1 style="font-family:var(--iw-font-display);font-size:clamp(36px,5vw,64px);font-weight:500;text-transform:uppercase;letter-spacing:-1px;line-height:1;margin:0;">
+        {{ customer.first_name | upcase }}.
+      </h1>
+    </div>
+    <a href="/account/logout" style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;border-bottom:1px solid #333;padding-bottom:2px;">SIGN OUT</a>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 2fr;gap:48px;">
+
+    <div>
+      <div style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.8px;color:#666;text-transform:uppercase;margin-bottom:20px;">DETAILS</div>
+      <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid #1a1a1a;">
+        <div style="padding:14px 0;border-bottom:1px solid #111;display:flex;justify-content:space-between;">
+          <span style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;">NAME</span>
+          <span style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.2px;">{{ customer.name | upcase }}</span>
+        </div>
+        <div style="padding:14px 0;border-bottom:1px solid #111;display:flex;justify-content:space-between;gap:12px;">
+          <span style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;flex-shrink:0;">EMAIL</span>
+          <span style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.2px;word-break:break-all;">{{ customer.email }}</span>
+        </div>
+        <div style="padding:14px 0;border-bottom:1px solid #111;display:flex;justify-content:space-between;">
+          <span style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;">ORDERS</span>
+          <span style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.2px;">{{ customer.orders_count }}</span>
+        </div>
+        <div style="padding:14px 0;border-bottom:1px solid #111;display:flex;justify-content:space-between;">
+          <span style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;">SPENT</span>
+          <span style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.2px;">{{ customer.total_spent | money_without_trailing_zeros }}</span>
+        </div>
+      </div>
+      <a href="/account/addresses" class="iw-btn" style="display:inline-flex;margin-top:24px;font-size:11px;">MANAGE ADDRESSES</a>
+    </div>
+
+    <div>
+      <div style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.8px;color:#666;text-transform:uppercase;margin-bottom:20px;">ORDER HISTORY</div>
+      {%- if customer.orders.size == 0 -%}
+        <div style="padding:48px 0;text-align:center;border:1px solid #1a1a1a;">
+          <p style="font-family:var(--iw-font-display);font-size:24px;font-weight:500;text-transform:uppercase;margin:0 0 12px;">NO ORDERS YET.</p>
+          <p style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;margin:0 0 32px;">GO EARN IT.</p>
+          <a href="/collections/all" class="iw-btn">SHOP NOW</a>
+        </div>
+      {%- else -%}
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid #1a1a1a;">
+              {%- for col in "ORDER,DATE,STATUS,TOTAL" | split: "," -%}
+                <th style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;padding:0 0 12px;text-align:left;font-weight:400;">{{ col }}</th>
+              {%- endfor -%}
+            </tr>
+          </thead>
+          <tbody>
+            {%- for order in customer.orders -%}
+              <tr style="border-bottom:1px solid #111;">
+                <td style="padding:16px 0;font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.2px;">
+                  <a href="{{ order.customer_url }}" style="color:#fff;border-bottom:1px solid #333;padding-bottom:1px;">{{ order.name }}</a>
+                </td>
+                <td style="padding:16px 0;font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.2px;color:var(--iw-gray);">{{ order.created_at | date: '%b %d, %Y' | upcase }}</td>
+                <td style="padding:16px 0;font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.2px;">{{ order.financial_status | replace:'paid','PAID' | replace:'pending','PENDING' | replace:'refunded','REFUNDED' | upcase }}</td>
+                <td style="padding:16px 0;font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.2px;">{{ order.total_price | money_without_trailing_zeros }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>

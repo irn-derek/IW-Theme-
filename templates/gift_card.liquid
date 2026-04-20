@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ gift_card.initial_value | money_without_trailing_zeros }} Gift Card — {{ shop.name }}</title>
+  <link rel="icon" type="image/png" href="{{ 'dagger-white.png' | asset_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500&family=Space+Mono:wght@400&family=Inter:wght@400&display=swap" rel="stylesheet">
+  {{ 'ironwilled.css' | asset_url | stylesheet_tag }}
+</head>
+<body style="background:#000;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;">
+
+  <div style="max-width:480px;width:100%;text-align:center;">
+    <img src="{{ 'dagger-white.png' | asset_url }}" alt="{{ shop.name }}" style="height:64px;margin:0 auto 40px;">
+
+    <div style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;margin-bottom:12px;">GIFT CARD</div>
+    <h1 style="font-family:var(--iw-font-display);font-size:72px;font-weight:500;margin:0 0 8px;">{{ gift_card.initial_value | money_without_trailing_zeros }}</h1>
+
+    {%- unless gift_card.enabled -%}
+      <p style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;color:#ff4444;text-transform:uppercase;margin:0 0 32px;">EXPIRED</p>
+    {%- endunless -%}
+
+    <div style="border:1px solid #333;padding:24px;margin:32px 0;">
+      <div style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;margin-bottom:12px;">BALANCE REMAINING</div>
+      <div style="font-family:var(--iw-font-display);font-size:36px;font-weight:500;">{{ gift_card.balance | money_without_trailing_zeros }}</div>
+    </div>
+
+    <div style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:2px;color:#fff;border:1px solid #333;padding:16px;word-spacing:8px;margin-bottom:24px;">
+      {{ gift_card.code | format_code }}
+    </div>
+
+    <a href="{{ shop.url }}" class="iw-btn" style="display:inline-flex;">SHOP NOW</a>
+  </div>
+
+</body>
+</html>

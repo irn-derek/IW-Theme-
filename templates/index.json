@@ -1,15 +1,5 @@
 {
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "blocks": {
-        "msg1": { "type": "message", "settings": { "message": "FREE SHIPPING OVER $200" } },
-        "msg2": { "type": "message", "settings": { "message": "SS26 · HEATON — NOW LIVE" } },
-        "msg3": { "type": "message", "settings": { "message": "MEMBERS: EARLY ACCESS OPEN" } }
-      },
-      "block_order": ["msg1", "msg2", "msg3"],
-      "settings": {}
-    },
     "hero": {
       "type": "hero",
       "settings": {
@@ -80,29 +70,14 @@
         "subtitle": "STAPLES · THE RACK",
         "products_to_show": 8
       }
-    },
-    "footer": {
-      "type": "footer",
-      "blocks": {
-        "col1": { "type": "link_column", "settings": { "heading": "SHOP", "links_fallback": "Train, Lift, Run, Recover, Everything" } },
-        "col2": { "type": "link_column", "settings": { "heading": "FORGE", "links_fallback": "The Manifesto, Journal, Ranks, Retail, Sustainability" } },
-        "col3": { "type": "link_column", "settings": { "heading": "HELP", "links_fallback": "Shipping, Returns, Sizing, Contact, FAQ" } },
-        "newsletter": { "type": "newsletter", "settings": { "heading": "ENLIST", "description": "Field reports. Release drops. No noise." } }
-      },
-      "block_order": ["col1", "col2", "col3", "newsletter"],
-      "settings": {
-        "tagline": "Kit for the willed. Forged in black. Train in anything."
-      }
     }
   },
   "order": [
-    "announcement-bar",
     "hero",
     "product-rail-new",
     "marquee",
     "editorial-band",
     "categories-grid",
-    "product-rail-foundations",
-    "footer"
+    "product-rail-foundations"
   ]
 }

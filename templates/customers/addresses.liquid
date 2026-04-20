@@ -1,0 +1,61 @@
+<div style="padding-top:calc(var(--iw-ann-height) + var(--iw-nav-height));max-width:860px;margin:0 auto;padding-left:32px;padding-right:32px;padding-bottom:96px;min-height:100vh;">
+
+  <div style="padding:72px 0 48px;border-bottom:1px solid #1a1a1a;margin-bottom:48px;">
+    <a href="/account" style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;display:inline-block;margin-bottom:24px;">← ACCOUNT</a>
+    <h1 style="font-family:var(--iw-font-display);font-size:clamp(32px,4vw,56px);font-weight:500;text-transform:uppercase;letter-spacing:-0.5px;line-height:1;margin:0;">ADDRESSES.</h1>
+  </div>
+
+  {%- paginate customer.addresses by 10 -%}
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:48px;">
+      {%- for address in customer.addresses -%}
+        <div style="border:1px solid {% if address == customer.default_address %}#fff{% else %}#1a1a1a{% endif %};padding:24px;">
+          {%- if address == customer.default_address -%}
+            <div style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;margin-bottom:16px;">DEFAULT</div>
+          {%- endif -%}
+          <address style="font-family:var(--iw-font-body);font-size:14px;color:#ccc;line-height:1.7;font-style:normal;margin-bottom:20px;">
+            {{ address.name }}<br>
+            {{ address.address1 }}<br>
+            {%- if address.address2 != blank %}{{ address.address2 }}<br>{%- endif %}
+            {{ address.city }}, {{ address.province_code }} {{ address.zip }}<br>
+            {{ address.country }}
+          </address>
+          <div style="display:flex;gap:12px;">
+            <a href="#" onclick="Shopify.CustomerAddress.toggleForm('{{ address.id }}'); return false;" style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:#fff;text-transform:uppercase;border-bottom:1px solid #fff;padding-bottom:2px;">EDIT</a>
+            <a href="#" onclick="Shopify.CustomerAddress.destroy('{{ address.id }}', '{{ 'Are you sure?' | escape }}'); return false;" style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;border-bottom:1px solid #333;padding-bottom:2px;">REMOVE</a>
+            {%- unless address == customer.default_address -%}
+              {%- form 'customer_address', address -%}
+                <input type="hidden" name="_method" value="put">
+                <input type="hidden" name="address[default]" value="1">
+                <button type="submit" style="background:transparent;border:0;border-bottom:1px solid #333;padding:0 0 2px;font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;cursor:pointer;">SET DEFAULT</button>
+              {%- endform -%}
+            {%- endunless -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endpaginate -%}
+
+  <div>
+    <div style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.8px;color:#666;text-transform:uppercase;margin-bottom:20px;">ADD NEW ADDRESS</div>
+    {%- form 'customer_address', customer.new_address -%}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <input type="text" name="address[first_name]" placeholder="FIRST NAME" value="{{ form.first_name }}"
+          style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;">
+        <input type="text" name="address[last_name]" placeholder="LAST NAME" value="{{ form.last_name }}"
+          style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+        <input type="text" name="address[address1]" placeholder="ADDRESS LINE 1" value="{{ form.address1 }}" style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;">
+        <input type="text" name="address[address2]" placeholder="ADDRESS LINE 2 (OPTIONAL)" value="{{ form.address2 }}" style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+          <input type="text" name="address[city]" placeholder="CITY" value="{{ form.city }}" style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;">
+          <input type="text" name="address[province]" placeholder="STATE" value="{{ form.province }}" style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;">
+          <input type="text" name="address[zip]" placeholder="ZIP" value="{{ form.zip }}" style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;">
+        </div>
+        <input type="text" name="address[country]" placeholder="COUNTRY" value="{{ form.country | default: 'United States' }}" style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;">
+      </div>
+      <button type="submit" class="iw-btn-filled" style="height:52px;padding:0 32px;font-size:13px;">SAVE ADDRESS</button>
+    {%- endform -%}
+  </div>
+
+</div>

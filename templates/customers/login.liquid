@@ -1,0 +1,33 @@
+<div style="padding-top:calc(var(--iw-ann-height) + var(--iw-nav-height));min-height:100vh;display:flex;align-items:center;justify-content:center;padding-bottom:96px;">
+  <div style="width:100%;max-width:440px;padding:0 32px;">
+
+    <div style="text-align:center;margin-bottom:48px;">
+      <img src="{{ 'dagger-white.png' | asset_url }}" alt="" style="height:56px;margin:0 auto 24px;">
+      <h1 style="font-family:var(--iw-font-display);font-size:36px;font-weight:500;text-transform:uppercase;letter-spacing:-0.5px;margin:0 0 8px;">SIGN IN</h1>
+      <p style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;">Access your account</p>
+    </div>
+
+    {%- form 'customer_login' -%}
+      {%- if form.errors -%}
+        <p style="font-family:var(--iw-font-mono);font-size:11px;letter-spacing:1.4px;color:#ff4444;text-transform:uppercase;margin-bottom:20px;text-align:center;">{{ form.errors | default_errors }}</p>
+      {%- endif -%}
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+        <input type="email" name="customer[email]" placeholder="EMAIL" autocomplete="email" required
+          style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;transition:border-color 200ms;"
+          onfocus="this.style.borderColor='#fff'" onblur="this.style.borderColor='#333'">
+        <input type="password" name="customer[password]" placeholder="PASSWORD" autocomplete="current-password" required
+          style="background:#000;border:1px solid #333;color:#fff;padding:14px 16px;font-family:var(--iw-font-mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;outline:none;transition:border-color 200ms;"
+          onfocus="this.style.borderColor='#fff'" onblur="this.style.borderColor='#333'">
+      </div>
+
+      <button type="submit" class="iw-btn-filled" style="width:100%;height:52px;font-size:13px;margin-bottom:12px;">SIGN IN</button>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <a href="/account/recover" style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;border-bottom:1px solid #333;padding-bottom:2px;">FORGOT PASSWORD?</a>
+        <a href="/account/register" style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:#fff;text-transform:uppercase;border-bottom:1px solid #fff;padding-bottom:2px;">CREATE ACCOUNT</a>
+      </div>
+    {%- endform -%}
+
+  </div>
+</div>
