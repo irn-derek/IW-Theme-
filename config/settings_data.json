@@ -1,9 +1,99 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "favicon": null,
     "social_instagram": "",
     "social_tiktok": "",
-    "social_twitter": ""
+    "social_twitter": "",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement-bar-0": {
+            "type": "message",
+            "settings": {
+              "message": "FREE SHIPPING OVER $200"
+            }
+          },
+          "announcement-bar-1": {
+            "type": "message",
+            "settings": {
+              "message": "SS26 · HEATON — NOW LIVE"
+            }
+          },
+          "announcement-bar-2": {
+            "type": "message",
+            "settings": {
+              "message": "MEMBERS: EARLY ACCESS OPEN"
+            }
+          }
+        },
+        "block_order": [
+          "announcement-bar-0",
+          "announcement-bar-1",
+          "announcement-bar-2"
+        ],
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "link_column",
+            "settings": {
+              "heading": "SHOP",
+              "menu": "",
+              "links_fallback": "Train, Lift, Run, Recover, Everything"
+            }
+          },
+          "footer-1": {
+            "type": "link_column",
+            "disabled": true,
+            "settings": {
+              "heading": "FORGE",
+              "menu": "",
+              "links_fallback": "The Manifesto, Journal, Ranks, Retail, Sustainability"
+            }
+          },
+          "footer-2": {
+            "type": "link_column",
+            "settings": {
+              "heading": "HELP",
+              "menu": "",
+              "links_fallback": "Shipping, Returns, Sizing, Contact, FAQ"
+            }
+          },
+          "footer-3": {
+            "type": "newsletter",
+            "settings": {
+              "heading": "JOIN",
+              "description": "Field reports. Release drops. No noise."
+            }
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "footer-1",
+          "footer-2",
+          "footer-3"
+        ],
+        "settings": {
+          "tagline": "Our Thing."
+        }
+      }
+    },
+    "content_for_index": []
   },
   "presets": {}
 }
