@@ -59,6 +59,7 @@
           },
           "footer-1": {
             "type": "link_column",
+            "disabled": true,
             "settings": {
               "heading": "FORGE",
               "menu": "",
@@ -76,7 +77,7 @@
           "footer-3": {
             "type": "newsletter",
             "settings": {
-              "heading": "ENLIST",
+              "heading": "JOIN",
               "description": "Field reports. Release drops. No noise."
             }
           }
