@@ -1,0 +1,56 @@
+{%- if cart.item_count == 0 -%}
+  <div style="padding-top: calc(var(--iw-ann-height) + var(--iw-nav-height)); min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+    <div>
+      <img src="{{ 'dagger-white.png' | asset_url }}" alt="" style="height: 64px; opacity: 0.3; margin: 0 auto 32px;">
+      <h1 style="font-family: var(--iw-font-display); font-size: 48px; font-weight: 500; text-transform: uppercase; margin: 0 0 12px;">THE CART IS EMPTY.</h1>
+      <p style="font-family: var(--iw-font-mono); font-size: 11px; letter-spacing: 1.4px; color: var(--iw-gray); text-transform: uppercase; margin: 0 0 40px;">GO EARN IT.</p>
+      <a href="/collections/all" class="iw-btn">SHOP NOW</a>
+    </div>
+  </div>
+{%- else -%}
+  <div class="iw-cart-page" style="padding-top: calc(var(--iw-ann-height) + var(--iw-nav-height)); max-width: 860px; margin: 0 auto; padding-left: 32px; padding-right: 32px; padding-bottom: 96px;">
+    <div style="padding: 64px 0 48px; border-bottom: 1px solid #1a1a1a; margin-bottom: 48px;">
+      <div style="font-family: var(--iw-font-mono); font-size: 11px; letter-spacing: 1.4px; color: var(--iw-gray); text-transform: uppercase; margin-bottom: 12px;">{{ cart.item_count }} ITEMS</div>
+      <h1 style="font-family: var(--iw-font-display); font-size: 64px; font-weight: 500; text-transform: uppercase; letter-spacing: -1px; line-height: 1; margin: 0;">THE RACK.</h1>
+    </div>
+
+    {%- form 'cart', cart -%}
+      {%- for item in cart.items -%}
+        <div class="iw-cart-row" style="border-bottom: 1px solid #111; padding: 24px 0;">
+          <div style="display: grid; grid-template-columns: 100px 1fr; gap: 20px;">
+            <a href="{{ item.url }}" style="aspect-ratio: 4/5; display: block; overflow: hidden; background: #0a0a0a;">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%);">
+              {%- endif -%}
+            </a>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; gap: 12px;">
+                <a href="{{ item.url }}" style="font-family: var(--iw-font-body); font-size: 15px; color: #fff; text-decoration: none;">{{ item.product.title }}</a>
+                <span style="font-family: var(--iw-font-mono); font-size: 13px; letter-spacing: 1.2px; flex-shrink: 0;">{{ item.final_line_price | money_without_trailing_zeros }}</span>
+              </div>
+              {%- unless item.variant.title == 'Default Title' -%}
+                <div style="font-family: var(--iw-font-mono); font-size: 10px; letter-spacing: 1.2px; color: var(--iw-gray); text-transform: uppercase;">{{ item.variant.title | upcase }}</div>
+              {%- endunless -%}
+              <div style="display: flex; align-items: center; gap: 12px; margin-top: auto;">
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width: 48px; background: #000; border: 1px solid #333; color: #fff; font-family: var(--iw-font-mono); font-size: 12px; padding: 6px 8px; text-align: center;">
+                <a href="{{ item.url_to_remove }}" style="font-family: var(--iw-font-mono); font-size: 10px; letter-spacing: 1.4px; color: var(--iw-gray); text-transform: uppercase; border-bottom: 1px solid #333;">REMOVE</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+
+      <div style="margin-top: 48px; border-top: 1px solid #1a1a1a; padding-top: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+          <span style="font-family: var(--iw-font-mono); font-size: 11px; letter-spacing: 1.4px; color: var(--iw-gray); text-transform: uppercase;">SUBTOTAL</span>
+          <span style="font-family: var(--iw-font-display); font-size: 36px; font-weight: 500;">{{ cart.total_price | money_without_trailing_zeros }}</span>
+        </div>
+        <div style="font-family: var(--iw-font-mono); font-size: 10px; letter-spacing: 1.4px; color: #666; text-transform: uppercase; margin-bottom: 24px;">TAX &amp; SHIPPING AT CHECKOUT</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="submit" name="update" class="iw-btn" style="flex: 1;">UPDATE CART</button>
+          <a href="/checkout" class="iw-btn-filled" style="flex: 2; text-align: center; height: 52px;">CHECKOUT — {{ cart.total_price | money_without_trailing_zeros }}</a>
+        </div>
+      </div>
+    {%- endform -%}
+  </div>
+{%- endif -%}
