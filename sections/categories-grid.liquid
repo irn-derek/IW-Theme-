@@ -41,7 +41,8 @@
         </div>
       </a>
     {%- else -%}
-      {%- for name in "TRAIN,LIFT,RUN,RECOVER" | split: "," -%}
+      {%- assign fallback_names = "TRAIN,LIFT,RUN,RECOVER" | split: "," -%}
+      {%- for name in fallback_names -%}
         <div class="iw-categories__tile" style="background:#0a0a0a;">
           <div class="iw-categories__tile-content">
             <span class="iw-categories__tile-no">0{{ forloop.index }}</span>

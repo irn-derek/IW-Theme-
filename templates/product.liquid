@@ -109,7 +109,7 @@
         </div>
         <div class="iw-editorial__index-row">
           <span class="iw-editorial__index-key">AVAILABILITY</span>
-          <span class="iw-editorial__index-val">{{ current_variant.available | default: false | ternary: 'IN STOCK', 'SOLD OUT' }}</span>
+          <span class="iw-editorial__index-val">{%- if current_variant.available -%}IN STOCK{%- else -%}SOLD OUT{%- endif -%}</span>
         </div>
         {%- if product.vendor != blank -%}
           <div class="iw-editorial__index-row">

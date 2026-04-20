@@ -47,7 +47,8 @@
         <table style="width:100%;border-collapse:collapse;">
           <thead>
             <tr style="border-bottom:1px solid #1a1a1a;">
-              {%- for col in "ORDER,DATE,STATUS,TOTAL" | split: "," -%}
+              {%- assign order_cols = "ORDER,DATE,STATUS,TOTAL" | split: "," -%}
+              {%- for col in order_cols -%}
                 <th style="font-family:var(--iw-font-mono);font-size:10px;letter-spacing:1.4px;color:var(--iw-gray);text-transform:uppercase;padding:0 0 12px;text-align:left;font-weight:400;">{{ col }}</th>
               {%- endfor -%}
             </tr>
